@@ -56,7 +56,7 @@ const Search = ({ setSearchModal }) => {
                                     src={
                                         process.env
                                             .REACT_APP_STRIPE_APP_DEV_URL +
-                                        item.attributes.image.data[0].attributes
+                                        item.attributes.img.data[0].attributes
                                             .url
                                     }
                                 />

@@ -31,10 +31,10 @@ const AppContext = ({ children }) => {
     }, [cartItems]);
 
     const handleAddToCart = (product, quantity) => {
-        let items = [...cartItems];
-        let index = items?.findIndex((p) => p.id === product?.id);
-        if (index !== -1) {
-            items[index].attributes.quantity += quantity;
+        let items = [...cartItems]; // SHALLOW COPY OF cart items 
+        let index = items?.findIndex((p) => p.id === product?.id);  // find index of product
+        if (index !== -1) { // in found // check if already our product is added in the cart
+            items[index].attributes.quantity += quantity; // quantity set kar denge => items[index].attributes.quantity
         } else {
             product.attributes.quantity = quantity;
             items = [...items, product];
@@ -49,9 +49,9 @@ const AppContext = ({ children }) => {
     };
 
     const handleCartProductQuantity = (type, product) => {
-        let items = [...cartItems];
-        let index = items?.findIndex((p) => p.id === product?.id);
-        if (type === "inc") {
+        let items = [...cartItems]; // SHALLOW COPY OF cart items 
+        let index = items?.findIndex((p) => p.id === product?.id); // find index of product
+        if (type === "inc") {            
             items[index].attributes.quantity += 1;
         } else if (type === "dec") {
             if (items[index].attributes.quantity === 1) return;

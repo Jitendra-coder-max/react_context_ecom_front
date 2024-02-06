@@ -9,18 +9,32 @@ import { makePaymentRequest } from "../../utils/api";
 import "./Cart.scss";
 
 const Cart = () => {
+    const REACT_APP_STRIPE_PUBLISHABLE_KEY=`pk_test_51OgXoaSAlePVykvhOdzeG5hqQGd1kQDHU9fCwh2lOE6rUKVpqcxP8CpJZFH8K3QmB1LIO2RWgDKNzRJPCC8kFmmu00cWop2CvL`;
     const { cartItems, setShowCart, cartSubTotal } = useContext(Context);
+    // console.log("Stripe Publishable Key:", process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY);
+
+
+
+    // const stripePromise = loadStripe(
+    //     `${process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY}`
+    // );
+
 
     const stripePromise = loadStripe(
-        process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY
-    );
+        REACT_APP_STRIPE_PUBLISHABLE_KEY
+    )
+     console.log(REACT_APP_STRIPE_PUBLISHABLE_KEY)
+
 
     const handlePayment = async () => {
         try {
             const stripe = await stripePromise;
             const res = await makePaymentRequest.post("/api/orders", {
                 products: cartItems,
+                
+               
             });
+            console.log(res)
             await stripe.redirectToCheckout({
                 sessionId: res.data.stripeSession.id,
             });
@@ -57,7 +71,7 @@ const Cart = () => {
                     </div>
                 )}
 
-                {!!cartItems.length && (
+                {!!cartItems.length && ( // in cout not zero
                     <>
                         <CartItem />
                         <div className="cart-footer">

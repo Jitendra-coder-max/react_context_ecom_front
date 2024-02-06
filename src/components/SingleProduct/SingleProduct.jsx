@@ -37,12 +37,27 @@ const SingleProduct = () => {
             <div className="layout">
                 <div className="single-product-page">
                     <div className="left">
-                        <img
+                        {/* <img
                             src={
                                 process.env.REACT_APP_STRIPE_APP_DEV_URL +
                                 product.image.data[0].attributes.url
                             }
-                        />
+                        /> */}
+
+
+<img
+    src={
+        process.env.REACT_APP_STRIPE_APP_DEV_URL +
+        (product.img &&
+        product.img.data &&
+        product.img.data[0] &&
+        product.img.data[0].attributes
+            ? product.img.data[0].attributes.url
+            : "")
+    }
+    alt={product.title}
+/>
+
                     </div>
                     <div className="right">
                         <span className="name">{product.title}</span>
